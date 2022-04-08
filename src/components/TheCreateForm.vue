@@ -37,7 +37,7 @@ export default {
         content: this.textarea,
       });
 
-      this.select = 'Заголовок';
+      this.select = 'title';
       this.textarea = '';
     }
   },
