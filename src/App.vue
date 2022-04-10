@@ -3,28 +3,12 @@
     <the-create-form @submitInfo="sendInfo"/>
 
     <div class="card card-w70">
-      <component v-if="portfolio.length" v-for="item in portfolio" :key="item.id" :is="'the-' + item.select"
-                 v-bind="{content: item.content}"/>
+      <component v-if="portfolio.length" v-for="item in portfolio" :key="item.id" :is="'the-' + item.select" v-bind="{content: item.content}"/>
       <h3 v-else>Информации пока нет, но ты можешь её добавить</h3>
     </div>
   </div>
-  <div class="container">
-    <div v-if="comments.length === 0">
-      <button class="btn primary" @click="getComments">Загрузить комментарии</button>
-    </div>
-    <div v-else class="card">
-      <h2>Комментарии</h2>
-      <ul class="list">
-        <li class="list-item" v-for="comment in comments" :key="comment.id">
-          <div>
-            <p><b>{{ comment.email }}</b></p>
-            <small>{{ comment.body }}</small>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div v-if="isLoaded" class="loader"></div>
-  </div>
+
+  <the-comments @get-comments="getComments"/>
 
 </template>
 
@@ -35,9 +19,10 @@ import TheAvatar from "@/components/TheAvatar";
 import TheSubtitle from "@/components/TheSubtitle";
 import TheText from "@/components/TheText";
 import TheTitle from "@/components/TheTitle";
+import TheComments from "@/components/TheComments";
 
 export default {
-  components: {TheAvatar, TheSubtitle, TheText, TheTitle, TheCreateForm},
+  components: {TheComments, TheAvatar, TheSubtitle, TheText, TheTitle, TheCreateForm},
   methods: {
     getComments() {
       this.$store.dispatch('getComments');
@@ -49,7 +34,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['comments', 'isLoaded', 'portfolio']),
+    ...mapGetters(['portfolio']),
   },
 
   async mounted() {
@@ -58,15 +43,3 @@ export default {
 }
 </script>
 
-<style>
-.avatar {
-  display: flex;
-  justify-content: center;
-}
-
-.avatar img {
-  width: 150px;
-  height: auto;
-  border-radius: 50%;
-}
-</style>

@@ -1,4 +1,5 @@
 import {createStore} from 'vuex'
+import url from "@/config/url"
 
 export default createStore({
   state: {
@@ -39,7 +40,7 @@ export default createStore({
     },
 
     async sendInfo(context, params) {
-      const response = await fetch("https://first-vue-http-e4db9-default-rtdb.europe-west1.firebasedatabase.app/portfolio.json", {
+      const response = await fetch(url, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -56,7 +57,7 @@ export default createStore({
 
     async getPortfolios(context) {
       try {
-        const response = await fetch('https://first-vue-http-e4db9-default-rtdb.europe-west1.firebasedatabase.app/portfolio.json');
+        const response = await fetch(url);
         if(!response.ok) {
           throw new Error('Ошибка. Не верный url')
         }

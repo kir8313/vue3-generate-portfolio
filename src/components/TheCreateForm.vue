@@ -44,7 +44,7 @@ export default {
 
   computed: {
     lengthText() {
-      return this.textarea.length > 3 ? false : true;
+      return this.textarea.length < 3;
     }
   }
 }
