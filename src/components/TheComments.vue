@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div v-if="comments.length === 0">
-      <button class="btn primary" @click="$emit('getComments')">Загрузить комментарии</button>
+      <button class="btn primary" :hidden="hideBtn" @click="getComments">Загрузить комментарии</button>
     </div>
     <div v-else class="card">
       <h2>Комментарии</h2>
@@ -14,7 +14,7 @@
         </li>
       </ul>
     </div>
-    <the-loader />
+    <the-loader :is-loaded="isLoaded" />
   </div>
 </template>
 
@@ -25,7 +25,17 @@ import {mapGetters} from "vuex"
 export default {
   components: {TheLoader},
   emits: ['getComments'],
-  computed: mapGetters(['comments'])
+  computed: mapGetters(['comments', 'isLoaded']),
+  data: () => ({
+    hideBtn: false,
+  }),
+
+  methods: {
+    getComments() {
+      this.$emit('getComments');
+      this.hideBtn = true;
+    }
+  }
 }
 </script>
 

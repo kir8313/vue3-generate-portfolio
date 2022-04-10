@@ -4,9 +4,10 @@
 
 <script>
 export default {
-  computed: {
-    isLoaded() {
-      this.$store.getters.isLoaded
+  props: {
+    isLoaded: {
+      type: Boolean,
+      required: true,
     }
   }
 }
